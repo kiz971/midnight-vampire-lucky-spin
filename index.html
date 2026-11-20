@@ -89,10 +89,8 @@ font-weight:bold;">
 <span style="transform:rotate(235.385deg) translateY(-112px)">0</span>
 <span style="transform:rotate(263.077deg) translateY(-112px)">30</span>
 <span style="transform:rotate(290.769deg) translateY(-112px)">0</span>
-<span style="transform:rotate(318.462deg) translateY(-112px)">100</span>
-<span style="transform:rotate(346.154deg) translateY(-112px)">0</span>
- 
- <div class="center">🐊</div>
+<span style="transform:rotate(318.462deg) translateY(-112px)">100</span> 
+<div class="center">🐊</div>
 </div>
 
 <button id="spin" onclick="spin()">🎡 SPIN NOW</button>
@@ -164,7 +162,7 @@ function spin(){
  }
  audio.resume();
 
- let prizes=[0,10,0,20,0,50,0,5,0,30,0,100,0];
+ let prizes=[0,10,0,20,0,50,0,5,0,30,0,100];
  let index=Math.floor(Math.random()*prizes.length);
  let prize=prizes[index];
 
