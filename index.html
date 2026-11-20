@@ -159,7 +159,7 @@ function spin(){
  let index=Math.floor(Math.random()*prizes.length);
  let prize=prizes[index];
 
- rotation+=1440+(360-index*60-30+360)%360;
+ rotation+=1440+(330-index*60-rotation%360+720)%360;
 
  document.getElementById("wheel").style.transform=
  "rotate("+rotation+"deg)";
