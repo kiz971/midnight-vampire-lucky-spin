@@ -83,35 +83,106 @@ button:disabled{opacity:.5}
 let points=100;
 let rotation=0;
 let busy=false;
+let audio;
+let soundTimer;
+let tickCount=0;
+
+function tickSound(){
+ if(!audio) return;
+
+ let osc=audio.createOscillator();
+ let gain=audio.createGain();
+
+ osc.type="square";
+ osc.frequency.value=900;
+ gain.gain.value=0.045;
+
+ osc.connect(gain);
+ gain.connect(audio.destination);
+
+ osc.start();
+ osc.stop(audio.currentTime+0.035);
+}
+
+function winSound(){
+ if(!audio) return;
+
+ [523,659,784,1046].forEach((freq,i)=>{
+  let osc=audio.createOscillator();
+  let gain=audio.createGain();
+
+  osc.type="sine";
+  osc.frequency.value=freq;
+  gain.gain.setValueAtTime(0.12,audio.currentTime+i*0.13);
+  gain.gain.exponentialRampToValueAtTime(
+   0.001,audio.currentTime+i*0.13+0.35
+  );
+
+  osc.connect(gain);
+  gain.connect(audio.destination);
+  osc.start(audio.currentTime+i*0.13);
+  osc.stop(audio.currentTime+i*0.13+0.35);
+ });
+}
 
 function spin(){
  if(busy)return;
+
  if(points<10){
- document.getElementById("result").textContent="Not enough points!";
- return;
+  document.getElementById("result").textContent="Not enough points!";
+  return;
  }
+
  busy=true;
  points-=10;
  document.getElementById("points").textContent=points;
  document.getElementById("spin").disabled=true;
+
+ if(!audio){
+  audio=new (window.AudioContext||window.webkitAudioContext)();
+ }
+ audio.resume();
 
  let prizes=[10,20,50,5,30,100];
  let index=Math.floor(Math.random()*prizes.length);
  let prize=prizes[index];
 
  rotation+=1440+(360-index*60-30+360)%360;
+
  document.getElementById("wheel").style.transform=
  "rotate("+rotation+"deg)";
 
+ let start=Date.now();
+ let duration=4000;
+
+ function playTicks(){
+  let elapsed=Date.now()-start;
+  if(elapsed>=duration)return;
+
+  tickSound();
+
+  let progress=elapsed/duration;
+  let delay=65+progress*260;
+
+  soundTimer=setTimeout(playTicks,delay);
+ }
+
+ playTicks();
+
  setTimeout(()=>{
- points+=prize;
- document.getElementById("points").textContent=points;
- document.getElementById("result").textContent=
- "🐊 YOU WON "+prize+" POINTS!";
- document.getElementById("spin").disabled=false;
- busy=false;
+  clearTimeout(soundTimer);
+  winSound();
+
+  points+=prize;
+  document.getElementById("points").textContent=points;
+  document.getElementById("result").textContent=
+  "🐊 YOU WON "+prize+" POINTS!";
+
+  document.getElementById("spin").disabled=false;
+  busy=false;
  },4100);
 }
 </script>
+ 
 </body>
 </html>
