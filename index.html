@@ -77,12 +77,21 @@ font-weight:bold;">
 <div class="pointer">▼</div>
 
 <div class="wheel" id="wheel">
- <span style="transform:rotate(30deg) translateY(-112px)">10</span>
- <span style="transform:rotate(90deg) translateY(-112px)">20</span>
- <span style="transform:rotate(150deg) translateY(-112px)">50</span>
- <span style="transform:rotate(210deg) translateY(-112px)">5</span>
- <span style="transform:rotate(270deg) translateY(-112px)">30</span>
- <span style="transform:rotate(330deg) translateY(-112px)">100</span>
+ 
+<span style="transform:rotate(13.846deg) translateY(-112px)">0</span>
+<span style="transform:rotate(41.538deg) translateY(-112px)">10</span>
+<span style="transform:rotate(69.231deg) translateY(-112px)">0</span>
+<span style="transform:rotate(96.923deg) translateY(-112px)">20</span>
+<span style="transform:rotate(124.615deg) translateY(-112px)">0</span>
+<span style="transform:rotate(152.308deg) translateY(-112px)">50</span>
+<span style="transform:rotate(180deg) translateY(-112px)">0</span>
+<span style="transform:rotate(207.692deg) translateY(-112px)">5</span>
+<span style="transform:rotate(235.385deg) translateY(-112px)">0</span>
+<span style="transform:rotate(263.077deg) translateY(-112px)">30</span>
+<span style="transform:rotate(290.769deg) translateY(-112px)">0</span>
+<span style="transform:rotate(318.462deg) translateY(-112px)">100</span>
+<span style="transform:rotate(346.154deg) translateY(-112px)">0</span>
+ 
  <div class="center">🐊</div>
 </div>
 
@@ -155,7 +164,7 @@ function spin(){
  }
  audio.resume();
 
- let prizes=[10,20,50,5,30,100];
+ let prizes=[0,10,0,20,0,50,0,5,0,30,0,100,0];
  let index=Math.floor(Math.random()*prizes.length);
  let prize=prizes[index];
 
@@ -165,7 +174,9 @@ function spin(){
  "rotate("+rotation+"deg)";
 
  let start=Date.now();
- let duration=4000;
+ let target=(360-(index+0.5)*360/13+360)%360;
+
+rotation+=1440+(target-rotation%360+360)%360;
 
  function playTicks(){
   let elapsed=Date.now()-start;
