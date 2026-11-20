@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Vampire Lucky Spin</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#10091c;color:white;
+ font-family:Arial,sans-serif;text-align:center;
+ padding:25px 15px;
+}
+h1{color:#c084fc;font-size:27px}
+.subtitle{color:#d8b4fe}
+.mascot{font-size:65px;margin:15px}
+.points{background:#29143f;padding:13px;border-radius:15px;
+ margin:20px auto;max-width:300px;color:#facc15}
+.pointer{font-size:35px;color:#facc15;margin-bottom:-10px}
+.wheel{
+ width:280px;height:280px;max-width:85vw;max-height:85vw;
+ border-radius:50%;margin:auto;
+ border:8px solid #d8b4fe;
+ background:conic-gradient(
+ #7e22ce 0deg 60deg,#dc2626 60deg 120deg,
+ #7e22ce 120deg 180deg,#dc2626 180deg 240deg,
+ #7e22ce 240deg 300deg,#dc2626 300deg 360deg);
+ position:relative;
+ transition:transform 4s cubic-bezier(.12,.7,.12,1);
+ box-shadow:0 0 25px #a855f7;
+}
+.wheel span{
+ position:absolute;left:50%;top:50%;
+ font-size:19px;font-weight:bold;
+ transform-origin:0 0;
+}
+.center{
+ position:absolute;top:50%;left:50%;
+ transform:translate(-50%,-50%);
+ background:#170c28;border:4px solid gold;
+ border-radius:50%;width:65px;height:65px;
+ display:grid;place-items:center;font-size:28px;
+}
+button{
+ background:#9333ea;color:white;border:0;
+ padding:15px 35px;border-radius:30px;
+ font-size:18px;font-weight:bold;margin:20px;
+}
+button:disabled{opacity:.5}
+#result{font-size:21px;color:#facc15;min-height:30px}
+.note{font-size:12px;color:#bda9cf}
+</style>
+</head>
+<body>
+
+<h1>🧛 MIDNIGHT VAMPIRE</h1>
+<div class="subtitle">LUCKY SPIN</div>
+<div class="mascot">🐊</div>
+
+<div class="points">
+ ⭐ YOUR POINTS: <b id="points">100</b>
+</div>
+
+<div class="pointer">▼</div>
+
+<div class="wheel" id="wheel">
+ <span style="transform:rotate(30deg) translateY(-112px)">10</span>
+ <span style="transform:rotate(90deg) translateY(-112px)">20</span>
+ <span style="transform:rotate(150deg) translateY(-112px)">50</span>
+ <span style="transform:rotate(210deg) translateY(-112px)">5</span>
+ <span style="transform:rotate(270deg) translateY(-112px)">30</span>
+ <span style="transform:rotate(330deg) translateY(-112px)">100</span>
+ <div class="center">🐊</div>
+</div>
+
+<button id="spin" onclick="spin()">🎡 SPIN NOW</button>
+<div id="result">Good luck, vampire!</div>
+
+<p class="note">FREE DEMO GAME • VIRTUAL POINTS ONLY</p>
+
+<script>
+let points=100;
+let rotation=0;
+let busy=false;
+
+function spin(){
+ if(busy)return;
+ if(points<10){
+ document.getElementById("result").textContent="Not enough points!";
+ return;
+ }
+ busy=true;
+ points-=10;
+ document.getElementById("points").textContent=points;
+ document.getElementById("spin").disabled=true;
+
+ let prizes=[10,20,50,5,30,100];
+ let index=Math.floor(Math.random()*prizes.length);
+ let prize=prizes[index];
+
+ rotation+=1440+(360-index*60-30+360)%360;
+ document.getElementById("wheel").style.transform=
+ "rotate("+rotation+"deg)";
+
+ setTimeout(()=>{
+ points+=prize;
+ document.getElementById("points").textContent=points;
+ document.getElementById("result").textContent=
+ "🐊 YOU WON "+prize+" POINTS!";
+ document.getElementById("spin").disabled=false;
+ busy=false;
+ },4100);
+}
+</script>
+</body>
+</html>
