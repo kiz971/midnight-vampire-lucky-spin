@@ -23,9 +23,20 @@ h1{color:#c084fc;font-size:27px}
  border-radius:50%;margin:auto;
  border:8px solid #d8b4fe;
  background:conic-gradient(
- #7e22ce 0deg 60deg,#dc2626 60deg 120deg,
- #7e22ce 120deg 180deg,#dc2626 180deg 240deg,
- #7e22ce 240deg 300deg,#dc2626 300deg 360deg);
+ #dc2626 0deg 27.692deg,
+ #7e22ce 27.692deg 55.385deg,
+ #dc2626 55.385deg 83.077deg,
+ #7e22ce 83.077deg 110.769deg,
+ #dc2626 110.769deg 138.462deg,
+ #7e22ce 138.462deg 166.154deg,
+ #dc2626 166.154deg 193.846deg,
+ #7e22ce 193.846deg 221.538deg,
+ #dc2626 221.538deg 249.231deg,
+ #7e22ce 249.231deg 276.923deg,
+ #dc2626 276.923deg 304.615deg,
+ #7e22ce 304.615deg 332.308deg,
+ #dc2626 332.308deg 360deg
+);
  position:relative;
  transition:transform 4s cubic-bezier(.12,.7,.12,1);
  box-shadow:0 0 25px #a855f7;
@@ -38,11 +49,14 @@ h1{color:#c084fc;font-size:27px}
 .wheel span.zero{
   background:#b91c1c;
   border:2px solid white;
-  border-radius:8px;
-  padding:5px 10px;
-  min-width:28px;
-  text-align:center;
-  box-shadow:0 0 8px #ff3333;
+  border-radius:50%;
+  padding:3px;
+  width:27px;
+  height:27px;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  box-shadow:0 0 7px #ff3333;
 }
 .center{
  position:absolute;top:50%;left:50%;
